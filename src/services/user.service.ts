@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { database } from 'src/db/database';
+import { NotValidIdException } from 'src/errors/notValidId';
 import { validate } from 'uuid';
 
 @Injectable()
@@ -10,10 +11,14 @@ export class UsersService {
 
   getUserById(id: string) {
     const idIsValid = validate(id);
-    const users = database.users;
-    if (idIsValid) {
-      const user = users.find((us) => us.id === id);
-      return user;
+    if (!idIsValid) {
+      throw new NotValidIdException();
     }
+    const users = database.users;
+    const user = users.find((us) => us.id === id);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 }
