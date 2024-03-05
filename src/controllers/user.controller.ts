@@ -21,6 +21,11 @@ export class UserController {
     return this.userService.createNewUser(createUserDto);
   }
 
-  @Put()
-  updateUserPassword(@Body() updatePasswordDto: UpdateUserDto);
+  @Put(':id')
+  updatePassword(
+    @Param('id') id: string,
+    @Body() updatePasswordDto: UpdateUserDto,
+  ) {
+    return this.userService.updateUserPassword(id, updatePasswordDto);
+  }
 }

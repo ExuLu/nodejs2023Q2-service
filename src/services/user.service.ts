@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { database } from 'src/db/database';
 import { NotValidIdException } from 'src/errors/notValidId';
+import { WrongPasswordException } from 'src/errors/wrongPassword';
 import { User } from 'src/types/user';
-import { CreateUserDto } from 'src/validators/userValidators';
+import { CreateUserDto, UpdateUserDto } from 'src/validators/userValidators';
 import { validate, v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -34,5 +35,19 @@ export class UsersService {
     };
     database.users.push(newUser);
     return newUser;
+  }
+
+  updateUserPassword(id: string, dto: UpdateUserDto) {
+    const idIsValid = validate(id);
+    if (!idIsValid) {
+      throw new NotValidIdException();
+    }
+    const user = database.users.find((us) => us.id === id);
+    if (!user) throw new NotFoundException();
+    const { oldPassword, newPassword } = dto;
+    if (user.password !== oldPassword) throw new WrongPasswordException();
+    user.password = newPassword;
+    user.updatedAt = Date.now();
+    return user;
   }
 }
