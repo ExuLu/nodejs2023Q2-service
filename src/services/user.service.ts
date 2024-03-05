@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { database } from 'src/db/database';
+import { validate } from 'uuid';
 
 @Injectable()
 export class UsersService {
@@ -8,13 +9,11 @@ export class UsersService {
   }
 
   getUserById(id: string) {
-    const users = [
-      {
-        id: '1',
-        name: 'Alena',
-      },
-    ];
-    const user = users.find((us) => us.id === id);
-    return user;
+    const idIsValid = validate(id);
+    const users = database.users;
+    if (idIsValid) {
+      const user = users.find((us) => us.id === id);
+      return user;
+    }
   }
 }
