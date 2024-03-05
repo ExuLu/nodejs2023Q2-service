@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { database } from 'src/db/database';
 
 @Injectable()
 export class UsersService {
   getAllUsers() {
-    return {};
+    return database.users;
   }
 
   getUserById(id: string) {
