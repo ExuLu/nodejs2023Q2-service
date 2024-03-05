@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { database } from 'src/db/database';
 import { NotValidIdException } from 'src/errors/notValidId';
-import { validate } from 'uuid';
+import { User } from 'src/types/user';
+import { CreateUserDto } from 'src/validators/userValidators';
+import { validate, v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
@@ -20,5 +22,17 @@ export class UsersService {
       throw new NotFoundException();
     }
     return user;
+  }
+
+  createNewUser(dto: CreateUserDto) {
+    const newUser: User = {
+      ...dto,
+      id: uuidv4(),
+      version: 1,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    };
+    database.users.push(newUser);
+    return newUser;
   }
 }
