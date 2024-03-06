@@ -22,7 +22,10 @@ export class TrackService {
   }
 
   addNewTrack(dto: CreateTrackDto) {
-    const idsAreValid = validate(dto.albumId) && validate(dto.artistId);
+    const idsAreValid =
+      (validate(dto.albumId) && validate(dto.artistId)) ||
+      dto.albumId === null ||
+      dto.artistId === null;
     if (!idsAreValid) throw new NotValidIdException();
 
     const newTrack: Track = {
