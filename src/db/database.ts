@@ -18,7 +18,7 @@ export const database: Db = {
       id: uuidv4(),
       name: 'So what',
       artistId: '1',
-      albumId: '1',
+      albumId: null,
       duration: 210,
     },
   ],
