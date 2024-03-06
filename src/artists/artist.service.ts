@@ -31,11 +31,11 @@ export class ArtistService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artist: Artist = database.artists.find((art) => art.id === id);
+    let artist: Artist = database.artists.find((art) => art.id === id);
     if (!artist) throw new NotFoundException();
 
-    const newArtist = { ...artist, ...dto };
-    return newArtist;
+    artist = { ...artist, ...dto };
+    return artist;
   }
 
   deleteArtist(id: string): void {
