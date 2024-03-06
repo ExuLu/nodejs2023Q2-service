@@ -14,14 +14,11 @@ export class UsersService {
 
   getUserById(id: string) {
     const idIsValid = validate(id);
-    if (!idIsValid) {
-      throw new NotValidIdException();
-    }
-    const users = database.users;
-    const user = users.find((us) => us.id === id);
-    if (!user) {
-      throw new NotFoundException();
-    }
+    if (!idIsValid) throw new NotValidIdException();
+
+    const user = database.users.find((us) => us.id === id);
+    if (!user) throw new NotFoundException();
+
     return user;
   }
 
@@ -39,15 +36,26 @@ export class UsersService {
 
   updateUserPassword(id: string, dto: UpdateUserDto) {
     const idIsValid = validate(id);
-    if (!idIsValid) {
-      throw new NotValidIdException();
-    }
+    if (!idIsValid) throw new NotValidIdException();
+
     const user = database.users.find((us) => us.id === id);
     if (!user) throw new NotFoundException();
+
     const { oldPassword, newPassword } = dto;
     if (user.password !== oldPassword) throw new WrongPasswordException();
+
     user.password = newPassword;
     user.updatedAt = Date.now();
     return user;
+  }
+
+  deleteUser(id: string) {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
+    const userIndex = database.users.findIndex((us) => us.id === id);
+    if (userIndex < 0) throw new NotFoundException();
+
+    database.users.splice(userIndex, 1);
   }
 }
