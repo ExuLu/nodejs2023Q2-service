@@ -37,6 +37,9 @@ export class AlbumService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
+    const artistIdIsValid = dto.artistId === null || validate(dto.artistId);
+    if (!artistIdIsValid) throw new NotValidIdException();
+
     const updatedAlbum = { id, ...dto };
     return updatedAlbum;
   }
