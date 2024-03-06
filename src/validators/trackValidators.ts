@@ -19,4 +19,18 @@ export class CreateTrackDto {
   @IsNotEmpty()
   duration: number;
 }
-export class UpdateTrackDto {}
+export class UpdateTrackDto {
+  @IsString()
+  name: string;
+
+  @ValidateIf((body) => body.artistId !== null)
+  @IsString()
+  artistId: string | null;
+
+  @ValidateIf((body) => body.artistId !== null)
+  @IsString()
+  albumId: string | null;
+
+  @IsInt()
+  duration: number;
+}
