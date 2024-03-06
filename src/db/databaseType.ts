@@ -1,6 +1,6 @@
-import { Album } from './album';
-import { Artist } from './artist';
-import { Favorites } from './favorites';
+import { Album } from '../types/album';
+import { Artist } from '../types/artist';
+import { Favorites } from '../types/favorites';
 import { Track } from '../tracks/trackInterface';
 import { User } from '../users/userInterface';
 
