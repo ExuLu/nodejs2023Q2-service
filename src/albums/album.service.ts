@@ -49,6 +49,9 @@ export class AlbumService {
     const artist = database.artists.find((art) => art.id === dto.artistId);
     if (!artist) updatedAlbum.artistId = null;
 
+    database.albums.splice(albumIndex, 1);
+    database.albums.push(updatedAlbum);
+
     return updatedAlbum;
   }
 
