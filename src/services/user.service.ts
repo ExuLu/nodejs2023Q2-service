@@ -8,21 +8,21 @@ import { validate, v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
-  getAllUsers() {
+  getAllUsers(): User[] {
     return database.users;
   }
 
-  getUserById(id: string) {
-    const idIsValid = validate(id);
+  getUserById(id: string): User {
+    const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const user = database.users.find((us) => us.id === id);
+    const user: User = database.users.find((us) => us.id === id);
     if (!user) throw new NotFoundException();
 
     return user;
   }
 
-  createNewUser(dto: CreateUserDto) {
+  createNewUser(dto: CreateUserDto): User {
     const newUser: User = {
       ...dto,
       id: uuidv4(),
@@ -34,11 +34,11 @@ export class UsersService {
     return newUser;
   }
 
-  updateUserPassword(id: string, dto: UpdateUserDto) {
-    const idIsValid = validate(id);
+  updateUserPassword(id: string, dto: UpdateUserDto): User {
+    const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const user = database.users.find((us) => us.id === id);
+    const user: User = database.users.find((us) => us.id === id);
     if (!user) throw new NotFoundException();
 
     const { oldPassword, newPassword } = dto;
@@ -50,7 +50,7 @@ export class UsersService {
     return user;
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: string): void {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
