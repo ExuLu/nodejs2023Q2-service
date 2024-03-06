@@ -53,10 +53,7 @@ export class TrackService {
       dto.artistId === null;
     if (!idsAreValid) throw new NotValidIdException();
 
-    const updatedTrack = {
-      id,
-      ...dto,
-    };
+    const updatedTrack = database.tracks.find((tr) => tr.id === id);
 
     const artist = database.artists.find((art) => art.id === dto.artistId);
     if (!artist && dto.artistId !== null) updatedTrack.artistId = null;
