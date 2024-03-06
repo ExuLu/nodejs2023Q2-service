@@ -64,7 +64,7 @@ export class TrackService {
     const album = database.albums.find((alb) => alb.id === dto.albumId);
     if (!album && dto.albumId !== null) updatedTrack.albumId = null;
 
-    track = { ...updatedTrack };
+    track = { ...track, ...updatedTrack };
     return track;
   }
 
