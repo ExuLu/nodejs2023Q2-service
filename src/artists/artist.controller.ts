@@ -12,7 +12,7 @@ import { ArtistService } from './artist.service';
 import { Artist } from './artistInterface';
 import { CreateArtistDto, UpdateArtistDto } from './artistDtos';
 
-@Controller()
+@Controller('artist')
 export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}
 
@@ -31,7 +31,7 @@ export class ArtistController {
     return this.artistService.createNewArtist(createArtistDto);
   }
 
-  @Put('id')
+  @Put(':id')
   updateArtist(
     @Param('id') id: string,
     @Body() updateArtistDto: UpdateArtistDto,
@@ -39,7 +39,7 @@ export class ArtistController {
     return this.artistService.updateArtistInfo(id, updateArtistDto);
   }
 
-  @Delete('id')
+  @Delete(':id')
   @HttpCode(204)
   deleteArtist(@Param('id') id: string): void {
     return this.artistService.deleteArtist(id);
