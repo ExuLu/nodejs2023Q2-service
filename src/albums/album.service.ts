@@ -56,6 +56,9 @@ export class AlbumService {
   }
 
   deleteAlbum(id: string): void {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
     const albumIndex: number = database.albums.findIndex(
       (alb) => alb.id === id,
     );
