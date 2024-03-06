@@ -18,4 +18,9 @@ export class AlbumController {
   getAllAlbums(): Album[] {
     return this.albumService.getAllAlbums();
   }
+
+  @Get('id')
+  getAlbumById(@Param('id') id: string): Album {
+    return this.albumService.getAlbumById(id);
+  }
 }

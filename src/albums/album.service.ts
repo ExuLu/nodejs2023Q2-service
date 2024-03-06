@@ -7,4 +7,9 @@ export class AlbumService {
   getAllAlbums(): Album[] {
     return database.albums;
   }
+
+  getAlbumById(id: string): Album {
+    const album: Album = database.albums.find((alb) => alb.id === id);
+    return album;
+  }
 }
