@@ -30,7 +30,7 @@ export class TrackController {
   }
 
   @Put(':id')
-  changeTrack(@Param() id: string, @Body() updateTrackDto: UpdateTrackDto) {
+  changeTrack(@Param('id') id: string, @Body() updateTrackDto: UpdateTrackDto) {
     return this.trackService.changeTrack(id, updateTrackDto);
   }
 

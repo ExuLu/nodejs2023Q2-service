@@ -20,17 +20,21 @@ export class CreateTrackDto {
   duration: number;
 }
 export class UpdateTrackDto {
+  @ValidateIf((body) => body.name)
   @IsString()
   name: string;
 
+  @ValidateIf((body) => body.artistId)
   @ValidateIf((body) => body.artistId !== null)
   @IsString()
   artistId: string | null;
 
-  @ValidateIf((body) => body.artistId !== null)
+  @ValidateIf((body) => body.albumId)
+  @ValidateIf((body) => body.albumId !== null)
   @IsString()
   albumId: string | null;
 
+  @ValidateIf((body) => body.duration)
   @IsInt()
   duration: number;
 }
