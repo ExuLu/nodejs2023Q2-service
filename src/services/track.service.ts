@@ -22,10 +22,19 @@ export class TrackService {
   }
 
   addNewTrack(dto: CreateTrackDto) {
+    const idsAreValid = validate(dto.albumId) && validate(dto.artistId);
+    if (!idsAreValid) throw new NotValidIdException();
+
     const newTrack: Track = {
       id: uuidv4(),
       ...dto,
     };
+
+    const artist = database.artists.find((art) => art.id === dto.artistId);
+    if (!artist && dto.artistId !== null) newTrack.artistId = null;
+
+    const album = database.albums.find((alb) => alb.id === dto.albumId);
+    if (!album && dto.albumId !== null) newTrack.albumId = null;
   }
 
   changeTrack(id: string, dto: UpdateTrackDto) {
