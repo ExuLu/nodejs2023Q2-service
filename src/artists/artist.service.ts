@@ -28,7 +28,12 @@ export class ArtistService {
   }
 
   updateArtistInfo(id: string, dto: UpdateArtistDto): Artist {
+    const idIsValid: boolean = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
     const artist: Artist = database.artists.find((art) => art.id === id);
+    if (!artist) throw new NotFoundException();
+
     const newArtist = { ...artist, ...dto };
     return newArtist;
   }
