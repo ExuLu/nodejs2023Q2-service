@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Album } from './albumType';
 import { database } from 'src/db/database';
 import { CreateAlbumDto, UpdateAlbumDto } from './albumDtos';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, validate } from 'uuid';
+import { NotValidIdException } from 'src/errors/notValidId';
 
 @Injectable()
 export class AlbumService {
@@ -11,7 +12,12 @@ export class AlbumService {
   }
 
   getAlbumById(id: string): Album {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
     const album: Album = database.albums.find((alb) => alb.id === id);
+    if (!album) throw new NotFoundException();
+    
     return album;
   }
 
