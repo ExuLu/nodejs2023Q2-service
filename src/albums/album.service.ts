@@ -19,4 +19,9 @@ export class AlbumService {
     const newAlbum: Album = { id: uuidv4(), ...dto };
     return newAlbum;
   }
+
+  updateAlbomInfo(id: string, dto: UpdateAlbumDto): Album {
+    const updatedAlbum = { id, ...dto };
+    return updatedAlbum;
+  }
 }
