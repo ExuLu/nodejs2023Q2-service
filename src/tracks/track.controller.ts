@@ -8,9 +8,9 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
-import { TrackService } from 'src/services/track.service';
-import { Track } from 'src/types/track';
-import { CreateTrackDto, UpdateTrackDto } from 'src/validators/trackValidators';
+import { TrackService } from 'src/tracks/track.service';
+import { Track } from 'src/tracks/trackInterface';
+import { CreateTrackDto, UpdateTrackDto } from 'src/tracks/trackDtos';
 
 @Controller('track')
 export class TrackController {

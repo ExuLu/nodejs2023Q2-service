@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { database } from 'src/db/database';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { WrongPasswordException } from 'src/errors/wrongPassword';
-import { User } from 'src/types/user';
-import { CreateUserDto, UpdateUserDto } from 'src/validators/userValidators';
+import { User } from 'src/users/userInterface';
+import { CreateUserDto, UpdateUserDto } from 'src/users/userDtos';
 import { validate, v4 as uuidv4 } from 'uuid';
 
 @Injectable()

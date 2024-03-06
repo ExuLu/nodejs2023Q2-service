@@ -1,11 +1,11 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserController } from './controllers/user.controller';
-import { UsersService } from './services/user.service';
+import { UserController } from './users/user.controller';
+import { UsersService } from './users/user.service';
 import { APP_PIPE } from '@nestjs/core';
-import { TrackController } from './controllers/track.controller';
-import { TrackService } from './services/track.service';
+import { TrackController } from './tracks/track.controller';
+import { TrackService } from './tracks/track.service';
 
 @Module({
   imports: [],
