@@ -1,15 +1,26 @@
 import { Injectable } from '@nestjs/common';
+import { database } from 'src/db/database';
 import { CreateTrackDto, UpdateTrackDto } from 'src/validators/trackValidators';
 
 @Injectable()
 export class TrackService {
-  getAllTracks() {}
+  getAllTracks() {
+    return database.tracks;
+  }
 
-  getTrackById(id: string) {}
+  getTrackById(id: string) {
+    return database.tracks;
+  }
 
-  addNewTrack(dto: CreateTrackDto) {}
+  addNewTrack(dto: CreateTrackDto) {
+    return database.tracks;
+  }
 
-  changeTrack(id: string, dto: UpdateTrackDto) {}
+  changeTrack(id: string, dto: UpdateTrackDto) {
+    return database.tracks;
+  }
 
-  deleteTrack(id: string) {}
+  deleteTrack(id: string) {
+    return database.tracks;
+  }
 }

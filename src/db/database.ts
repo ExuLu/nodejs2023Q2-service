@@ -13,7 +13,15 @@ export const database: Db = {
     },
   ],
   artists: [],
-  tracks: [],
+  tracks: [
+    {
+      id: uuidv4(),
+      name: 'So what',
+      artistId: '1',
+      albumId: '1',
+      duration: 210,
+    },
+  ],
   albums: [],
   favorites: {
     artists: [],
