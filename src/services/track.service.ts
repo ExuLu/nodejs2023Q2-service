@@ -44,7 +44,14 @@ export class TrackService {
   }
 
   changeTrack(id: string, dto: UpdateTrackDto) {
-    
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
+    const idsAreValid =
+      (validate(dto.albumId) && validate(dto.artistId)) ||
+      dto.albumId === null ||
+      dto.artistId === null;
+    if (!idsAreValid) throw new NotValidIdException();
 
     return database.tracks;
   }
