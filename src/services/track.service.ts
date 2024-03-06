@@ -50,7 +50,9 @@ export class TrackService {
     const idsAreValid =
       (validate(dto.albumId) && validate(dto.artistId)) ||
       dto.albumId === null ||
-      dto.artistId === null;
+      dto.artistId === null ||
+      !dto.albumId ||
+      !dto.artistId;
     if (!idsAreValid) throw new NotValidIdException();
 
     const updatedTrack = { id, ...dto };
