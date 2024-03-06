@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { database } from 'src/db/database';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { Album } from 'src/types/album';
-import { Artist } from 'src/types/artist';
+import { Artist } from 'src/artists/artistInterface';
 import { Track } from 'src/tracks/trackInterface';
 import { CreateTrackDto, UpdateTrackDto } from 'src/tracks/trackDtos';
 import { validate, v4 as uuidv4 } from 'uuid';
