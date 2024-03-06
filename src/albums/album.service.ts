@@ -20,7 +20,7 @@ export class AlbumService {
     return newAlbum;
   }
 
-  updateAlbomInfo(id: string, dto: UpdateAlbumDto): Album {
+  updateAlbumInfo(id: string, dto: UpdateAlbumDto): Album {
     const updatedAlbum = { id, ...dto };
     return updatedAlbum;
   }
