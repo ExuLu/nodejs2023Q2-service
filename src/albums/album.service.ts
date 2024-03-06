@@ -46,6 +46,9 @@ export class AlbumService {
     if (albumIndex < 0) throw new NotFoundException();
 
     const updatedAlbum = { id, ...dto };
+    const artist = database.artists.find((art) => art.id === dto.artistId);
+    if (!artist) updatedAlbum.artistId = null;
+
     return updatedAlbum;
   }
 
