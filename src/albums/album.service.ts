@@ -24,4 +24,11 @@ export class AlbumService {
     const updatedAlbum = { id, ...dto };
     return updatedAlbum;
   }
+
+  deleteAlbum(id: string): void {
+    const albumIndex: number = database.albums.findIndex(
+      (alb) => alb.id === id,
+    );
+    database.albums.splice(albumIndex, 1);
+  }
 }
