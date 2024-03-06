@@ -60,7 +60,8 @@ export class TrackService {
     if (!idsAreValid) throw new NotValidIdException();
 
     const updatedTrack: Track = { id, ...dto };
-    let track: Track = database.tracks.find((tr) => tr.id === id);
+    const trackIndex: number = database.tracks.findIndex((tr) => tr.id === id);
+    if (trackIndex < 0) throw new NotFoundException();
 
     const artist: Artist = database.artists.find(
       (art) => art.id === dto.artistId,
@@ -70,8 +71,9 @@ export class TrackService {
     const album: Album = database.albums.find((alb) => alb.id === dto.albumId);
     if (!album && dto.albumId !== null) updatedTrack.albumId = null;
 
-    track = { ...track, ...updatedTrack };
-    return track;
+    database.tracks.splice(trackIndex, 1);
+    database.tracks.push(updatedTrack);
+    return updatedTrack;
   }
 
   deleteTrack(id: string): void {
