@@ -62,6 +62,7 @@ export class AlbumService {
     const albumIndex: number = database.albums.findIndex(
       (alb) => alb.id === id,
     );
+    if (albumIndex < 0) throw new NotFoundException();
     database.albums.splice(albumIndex, 1);
   }
 }
