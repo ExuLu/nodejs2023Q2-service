@@ -12,7 +12,7 @@ export const database: Db = {
       updatedAt: Date.now(),
     },
   ],
-  artists: [],
+  artists: [{ id: '1', name: '!Pink', grammy: true }],
   tracks: [
     {
       id: uuidv4(),
