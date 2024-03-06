@@ -34,6 +34,9 @@ export class AlbumService {
   }
 
   updateAlbumInfo(id: string, dto: UpdateAlbumDto): Album {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
     const updatedAlbum = { id, ...dto };
     return updatedAlbum;
   }
