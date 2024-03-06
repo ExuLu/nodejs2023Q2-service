@@ -20,7 +20,7 @@ export class TrackController {
   }
 
   @Get(':id')
-  getTrackById(@Param() id: string) {
+  getTrackById(@Param('id') id: string) {
     return this.trackService.getTrackById(id);
   }
 
