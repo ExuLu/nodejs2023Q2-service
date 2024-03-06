@@ -39,6 +39,12 @@ export class ArtistService {
   }
 
   deleteArtist(id: string): void {
+    const idIsValid: boolean = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
+    const artist: Artist = database.artists.find((art) => art.id === id);
+    if (!artist) throw new NotFoundException();
+
     const artistIndex = database.artists.findIndex((art) => art.id === id);
     database.artists.splice(artistIndex, 1);
   }
