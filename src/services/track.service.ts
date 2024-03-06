@@ -35,6 +35,9 @@ export class TrackService {
 
     const album = database.albums.find((alb) => alb.id === dto.albumId);
     if (!album && dto.albumId !== null) newTrack.albumId = null;
+
+    database.tracks.push(newTrack);
+    return newTrack;
   }
 
   changeTrack(id: string, dto: UpdateTrackDto) {
