@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Artist } from './artistInterface';
 import { database } from 'src/db/database';
 import { CreateArtistDto, UpdateArtistDto } from './artistDtos';
-import { validate } from 'uuid';
+import { validate, v4 as uuidv4 } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
 
 @Injectable()
@@ -22,7 +22,8 @@ export class ArtistService {
   }
 
   createNewArtist(dto: CreateArtistDto): Artist {
-    const newArtist = { ...dto, id: '1', name: 'Pink', grammy: false };
+    const newArtist: Artist = { ...dto, id: uuidv4() };
+    database.artists.push(newArtist);
     return newArtist;
   }
 
