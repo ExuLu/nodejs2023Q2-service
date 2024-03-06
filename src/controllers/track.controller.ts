@@ -1,5 +1,14 @@
-import { Body, Controller, Get, Param, Post, Put, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { TrackService } from 'src/services/track.service';
+import { CreateTrackDto, UpdateTrackDto } from 'src/validators/trackValidators';
 
 @Controller('track')
 export class TrackController {
@@ -11,11 +20,11 @@ export class TrackController {
   getTrackById(@Param() id: string) {}
 
   @Post()
-  addTrack(@Body()){}
+  addTrack(@Body() createTrackDto: CreateTrackDto) {}
 
   @Put(':id')
-  changeTrack(@Param() id: string, @Body()){}
+  changeTrack(@Param() id: string, @Body() updateTrackDto: UpdateTrackDto) {}
 
   @Delete(':id')
-  deleteTrack(@Param()id: string) {}
+  deleteTrack(@Param() id: string) {}
 }
