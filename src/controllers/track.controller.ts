@@ -14,17 +14,27 @@ import { CreateTrackDto, UpdateTrackDto } from 'src/validators/trackValidators';
 export class TrackController {
   constructor(private readonly trackService: TrackService) {}
   @Get()
-  getAllTracks() {}
+  getAllTracks() {
+    this.trackService.getAllTracks();
+  }
 
   @Get(':id')
-  getTrackById(@Param() id: string) {}
+  getTrackById(@Param() id: string) {
+    this.trackService.getTrackById(id);
+  }
 
   @Post()
-  addTrack(@Body() createTrackDto: CreateTrackDto) {}
+  addTrack(@Body() createTrackDto: CreateTrackDto) {
+    this.trackService.addNewTrack(createTrackDto);
+  }
 
   @Put(':id')
-  changeTrack(@Param() id: string, @Body() updateTrackDto: UpdateTrackDto) {}
+  changeTrack(@Param() id: string, @Body() updateTrackDto: UpdateTrackDto) {
+    this.trackService.changeTrack(id, updateTrackDto);
+  }
 
   @Delete(':id')
-  deleteTrack(@Param() id: string) {}
+  deleteTrack(@Param() id: string) {
+    this.trackService.deleteTrack(id);
+  }
 }
