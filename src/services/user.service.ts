@@ -46,6 +46,7 @@ export class UsersService {
 
     user.password = newPassword;
     user.updatedAt = Date.now();
+    user.version++;
     return user;
   }
 
