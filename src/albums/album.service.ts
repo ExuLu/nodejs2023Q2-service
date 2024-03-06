@@ -40,6 +40,11 @@ export class AlbumService {
     const artistIdIsValid = dto.artistId === null || validate(dto.artistId);
     if (!artistIdIsValid) throw new NotValidIdException();
 
+    const albumIndex: number = database.albums.findIndex(
+      (alb) => alb.id === id,
+    );
+    if (albumIndex < 0) throw new NotFoundException();
+
     const updatedAlbum = { id, ...dto };
     return updatedAlbum;
   }
