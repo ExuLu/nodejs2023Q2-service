@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { TrackService } from 'src/services/track.service';
 import { CreateTrackDto, UpdateTrackDto } from 'src/validators/trackValidators';
@@ -35,6 +36,7 @@ export class TrackController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   deleteTrack(@Param() id: string) {
     return this.trackService.deleteTrack(id);
   }

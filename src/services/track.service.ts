@@ -69,6 +69,12 @@ export class TrackService {
   }
 
   deleteTrack(id: string) {
-    return database.tracks;
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
+    const trackIndex = database.tracks.findIndex((tr) => tr.id === id);
+    if (trackIndex < 0) throw new NotFoundException();
+
+    database.tracks.splice(trackIndex, 1);
   }
 }
