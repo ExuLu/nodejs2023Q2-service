@@ -10,12 +10,10 @@ export class CreateArtistDto {
   grammy: boolean;
 }
 export class UpdateArtistDto {
-  @ValidateIf((body) => body.name)
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ValidateIf((body) => body.grammy)
   @IsBoolean()
   @IsNotEmpty()
   grammy: boolean;
