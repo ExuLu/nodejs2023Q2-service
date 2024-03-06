@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Artist } from './artistInterface';
 import { database } from 'src/db/database';
 import { CreateArtistDto, UpdateArtistDto } from './artistDtos';
+import { validate } from 'uuid';
+import { NotValidIdException } from 'src/errors/notValidId';
 
 @Injectable()
 export class ArtistService {
@@ -10,7 +12,12 @@ export class ArtistService {
   }
 
   getArtistById(id: string): Artist {
+    const idIsValid: boolean = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
     const artist: Artist = database.artists.find((art) => art.id === id);
+    if (!artist) throw new NotFoundException();
+
     return artist;
   }
 
