@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { AlbumService } from './album.service';
 import { Album } from './albumType';
+import { CreateAlbumDto } from './albumDtos';
 
 @Controller('album')
 export class AlbumController {
@@ -22,5 +23,10 @@ export class AlbumController {
   @Get('id')
   getAlbumById(@Param('id') id: string): Album {
     return this.albumService.getAlbumById(id);
+  }
+
+  @Post()
+  createAlbum(@Body() createAlbumDto: CreateAlbumDto) {
+    return this.albumService.createNewAlbum(createAlbumDto);
   }
 }

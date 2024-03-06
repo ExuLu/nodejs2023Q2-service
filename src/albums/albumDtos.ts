@@ -1,6 +1,6 @@
 import { IsInt, IsNotEmpty, IsString, ValidateIf } from 'class-validator';
 
-export class AlbumCreateDto {
+export class CreateAlbumDto {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -14,7 +14,7 @@ export class AlbumCreateDto {
   @IsNotEmpty()
   artistId: string | null;
 }
-export class AlbumUpdateDto {
+export class UpdateAlbumDto {
   @IsString()
   @IsNotEmpty()
   name: string;

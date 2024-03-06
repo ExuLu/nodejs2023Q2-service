@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Album } from './albumType';
 import { database } from 'src/db/database';
-import { AlbumCreateDto } from './albumDtos';
+import { CreateAlbumDto, UpdateAlbumDto } from './albumDtos';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class AlbumService {
     return album;
   }
 
-  createNewAlbum(dto: AlbumCreateDto): Album {
+  createNewAlbum(dto: CreateAlbumDto): Album {
     const newAlbum: Album = { id: uuidv4(), ...dto };
     return newAlbum;
   }
