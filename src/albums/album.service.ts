@@ -27,7 +27,8 @@ export class AlbumService {
 
     const newAlbum: Album = { id: uuidv4(), ...dto };
 
-
+    const artist = database.artists.find((art) => art.id === dto.artistId);
+    if (!artist) newAlbum.artistId = null;
 
     return newAlbum;
   }
