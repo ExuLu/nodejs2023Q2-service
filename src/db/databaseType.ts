@@ -1,4 +1,4 @@
-import { Album } from '../types/album';
+import { Album } from '../albums/albumType';
 import { Artist } from '../artists/artistInterface';
 import { Favorites } from '../types/favorites';
 import { Track } from '../tracks/trackInterface';

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { database } from 'src/db/database';
 import { NotValidIdException } from 'src/errors/notValidId';
-import { Album } from 'src/types/album';
+import { Album } from 'src/albums/albumType';
 import { Artist } from 'src/artists/artistInterface';
 import { Track } from 'src/tracks/trackInterface';
 import { CreateTrackDto, UpdateTrackDto } from 'src/tracks/trackDtos';
