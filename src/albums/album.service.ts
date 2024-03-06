@@ -17,12 +17,18 @@ export class AlbumService {
 
     const album: Album = database.albums.find((alb) => alb.id === id);
     if (!album) throw new NotFoundException();
-    
+
     return album;
   }
 
   createNewAlbum(dto: CreateAlbumDto): Album {
+    const idIsValid = dto.artistId === null || validate(dto.artistId);
+    if (!idIsValid) throw new NotValidIdException();
+
     const newAlbum: Album = { id: uuidv4(), ...dto };
+
+
+
     return newAlbum;
   }
 
