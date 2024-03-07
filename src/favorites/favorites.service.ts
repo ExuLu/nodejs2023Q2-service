@@ -67,4 +67,33 @@ export class FavoriteService {
       throw new NotFoundException('Album is not found in favorites');
     database.favorites.albums.splice(albumIndex, 1);
   }
+
+  addArtistToFavs(id: string): object {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
+    const artist = database.artists.find((alb) => alb.id === id);
+    if (!artist) throw new UnprocessableEntityException('Artist is not found');
+
+    const artistIsInFavs = database.favorites.artists.find(
+      (tr) => tr.id === id,
+    );
+    if (artistIsInFavs)
+      throw new UnprocessableEntityException('Artist is already in favorites');
+
+    database.favorites.artists.push(artist);
+    return { message: 'Artist was successfully added to favorites' };
+  }
+
+  deleteArtistFromFavs(id: string): void {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
+    const artistIndex: number = database.favorites.artists.findIndex(
+      (tr) => tr.id === id,
+    );
+    if (artistIndex < 0)
+      throw new NotFoundException('Artist is not found in favorites');
+    database.favorites.artists.splice(artistIndex, 1);
+  }
 }
