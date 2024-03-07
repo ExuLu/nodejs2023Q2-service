@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { FavoriteService } from './favorites.service';
 import { Favorites } from './favoritesType';
 
@@ -14,5 +14,10 @@ export class FavoritesController {
   @Post('track/:id')
   addTrack(@Param('id') id: string): object {
     return this.favoritesService.addTrackToFavs(id);
+  }
+
+  @Delete('track/:id')
+  deleteTrack(@Param('id') id: string): void {
+    return this.favoritesService.deleteTrackFromFavs(id);
   }
 }

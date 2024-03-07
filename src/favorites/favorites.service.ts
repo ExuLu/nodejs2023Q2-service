@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { database } from 'src/db/database';
 import { Favorites } from './favoritesType';
 import { validate } from 'uuid';
@@ -28,4 +24,6 @@ export class FavoriteService {
     database.favorites.tracks.push(track);
     return { message: 'Track was successfully added to favorites' };
   }
+
+  
 }
