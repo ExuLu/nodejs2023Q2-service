@@ -36,7 +36,8 @@ export class FavoriteService {
     const trackIndex: number = database.favorites.tracks.findIndex(
       (tr) => tr.id === id,
     );
-    if (trackIndex < 0) throw new NotFoundException();
+    if (trackIndex < 0)
+      throw new NotFoundException('Track is not found in favorites');
     database.favorites.tracks.splice(trackIndex, 1);
   }
 }
