@@ -1,4 +1,8 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { database } from 'src/db/database';
 import { Favorites } from './favoritesType';
 import { validate } from 'uuid';
@@ -32,6 +36,7 @@ export class FavoriteService {
     const trackIndex: number = database.favorites.tracks.findIndex(
       (tr) => tr.id === id,
     );
+    if (trackIndex < 0) throw new NotFoundException();
     database.favorites.tracks.splice(trackIndex, 1);
   }
 }
