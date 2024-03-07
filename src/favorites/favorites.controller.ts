@@ -21,4 +21,9 @@ export class FavoritesController {
   deleteTrack(@Param('id') id: string): void {
     return this.favoritesService.deleteTrackFromFavs(id);
   }
+
+  @Post('album/:id')
+  addAlbum(@Param('id') id: string): object {
+    return this.favoritesService.addAlbumToFavs(id);
+  }
 }

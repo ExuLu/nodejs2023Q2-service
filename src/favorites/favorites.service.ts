@@ -40,4 +40,10 @@ export class FavoriteService {
       throw new NotFoundException('Track is not found in favorites');
     database.favorites.tracks.splice(trackIndex, 1);
   }
+
+  addAlbumToFavs(id: string): object {
+    const album = database.albums.find((alb) => alb.id === id);
+    database.favorites.albums.push(album);
+    return { message: 'Track was successfully added to favorites' };
+  }
 }
