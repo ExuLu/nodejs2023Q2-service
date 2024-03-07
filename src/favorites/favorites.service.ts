@@ -8,9 +8,9 @@ export class FavoriteService {
     return database.favorites;
   }
 
-  addTrackToFavs(id: string) {
+  addTrackToFavs(id: string): object {
     const track = database.tracks.find((tr) => tr.id === id);
     database.favorites.tracks.push(track);
-    return track;
+    return { message: 'Track was successfully added to favorites' };
   }
 }
