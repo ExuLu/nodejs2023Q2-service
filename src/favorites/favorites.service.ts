@@ -7,4 +7,9 @@ export class FavoriteService {
   getAllFavorites(): Favorites {
     return database.favorites;
   }
+
+  addTrackToFavs(id: string) {
+    const track = database.tracks.find((tr) => tr.id === id);
+    return track;
+  }
 }
