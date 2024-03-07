@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { database } from 'src/db/database';
 import { Favorites } from './favoritesType';
 import { validate } from 'uuid';
@@ -15,6 +19,12 @@ export class FavoriteService {
     if (!idIsValid) throw new NotValidIdException();
 
     const track = database.tracks.find((tr) => tr.id === id);
+    if (!track) throw new UnprocessableEntityException('Track is not found');
+
+    const trackIsInFavs = database.favorites.tracks.find((tr) => tr.id === id);
+    if (trackIsInFavs)
+      throw new UnprocessableEntityException('Track is already in favorites');
+
     database.favorites.tracks.push(track);
     return { message: 'Track was successfully added to favorites' };
   }
