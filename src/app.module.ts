@@ -2,8 +2,6 @@ import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_PIPE } from '@nestjs/core';
-import { ArtistService } from './artists/artist.service';
-import { ArtistController } from './artists/artist.controller';
 import { AlbumController } from './albums/album.controller';
 import { AlbumService } from './albums/album.service';
 import { UserModule } from './users/user.module';
