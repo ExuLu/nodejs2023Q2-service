@@ -1,8 +1,6 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserController } from './users/user.controller';
-import { UsersService } from './users/user.service';
 import { APP_PIPE } from '@nestjs/core';
 import { TrackController } from './tracks/track.controller';
 import { TrackService } from './tracks/track.service';
@@ -12,12 +10,12 @@ import { AlbumController } from './albums/album.controller';
 import { AlbumService } from './albums/album.service';
 import { FavoritesController } from './favorites/favorites.controller';
 import { FavoriteService } from './favorites/favorites.service';
+import { UserModule } from './users/user.module';
 
 @Module({
-  imports: [],
+  imports: [UserModule],
   controllers: [
     AppController,
-    UserController,
     TrackController,
     ArtistController,
     AlbumController,
@@ -25,7 +23,6 @@ import { FavoriteService } from './favorites/favorites.service';
   ],
   providers: [
     AppService,
-    UsersService,
     TrackService,
     ArtistService,
     AlbumService,
