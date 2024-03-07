@@ -25,5 +25,10 @@ export class FavoriteService {
     return { message: 'Track was successfully added to favorites' };
   }
 
-  
+  deleteTrackFromFavs(id: string): void {
+    const trackIndex: number = database.favorites.tracks.findIndex(
+      (tr) => tr.id === id,
+    );
+    database.favorites.tracks.splice(trackIndex, 1);
+  }
 }
