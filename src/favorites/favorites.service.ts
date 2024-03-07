@@ -42,8 +42,17 @@ export class FavoriteService {
   }
 
   addAlbumToFavs(id: string): object {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
     const album = database.albums.find((alb) => alb.id === id);
+    if (!album) throw new UnprocessableEntityException('Album is not found');
+
+    const albumIsInFavs = database.favorites.albums.find((tr) => tr.id === id);
+    if (albumIsInFavs)
+      throw new UnprocessableEntityException('Album is already in favorites');
+
     database.favorites.albums.push(album);
-    return { message: 'Track was successfully added to favorites' };
+    return { message: 'Album was successfully added to favorites' };
   }
 }
