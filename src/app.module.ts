@@ -10,6 +10,8 @@ import { ArtistService } from './artists/artist.service';
 import { ArtistController } from './artists/artist.controller';
 import { AlbumController } from './albums/album.controller';
 import { AlbumService } from './albums/album.service';
+import { FavoritesController } from './favorites/favorites.controller';
+import { FavoriteService } from './favorites/favorites.service';
 
 @Module({
   imports: [],
@@ -19,6 +21,7 @@ import { AlbumService } from './albums/album.service';
     TrackController,
     ArtistController,
     AlbumController,
+    FavoritesController,
   ],
   providers: [
     AppService,
@@ -26,6 +29,7 @@ import { AlbumService } from './albums/album.service';
     TrackService,
     ArtistService,
     AlbumService,
+    FavoriteService,
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({
