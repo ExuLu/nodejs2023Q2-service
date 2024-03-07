@@ -26,4 +26,10 @@ export class FavoritesController {
   addAlbum(@Param('id') id: string): object {
     return this.favoritesService.addAlbumToFavs(id);
   }
+
+  @Delete('album/:id')
+  @HttpCode(204)
+  deleteAlbum(@Param('id') id: string): void {
+    return this.favoritesService.deleteAlbumFromFavs(id);
+  }
 }
