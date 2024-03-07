@@ -55,4 +55,16 @@ export class FavoriteService {
     database.favorites.albums.push(album);
     return { message: 'Album was successfully added to favorites' };
   }
+
+  deleteAlbumFromFavs(id: string): void {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
+    const albumIndex: number = database.favorites.albums.findIndex(
+      (tr) => tr.id === id,
+    );
+    if (albumIndex < 0)
+      throw new NotFoundException('Album is not found in favorites');
+    database.favorites.albums.splice(albumIndex, 1);
+  }
 }
