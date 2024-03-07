@@ -10,6 +10,7 @@ export class FavoriteService {
 
   addTrackToFavs(id: string) {
     const track = database.tracks.find((tr) => tr.id === id);
+    database.favorites.tracks.push(track);
     return track;
   }
 }
