@@ -16,14 +16,16 @@ export class UsersService {
     return safeUsers;
   }
 
-  getUserById(id: string): User {
+  getUserById(id: string): safeUser {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
     const user: User = database.users.find((us) => us.id === id);
     if (!user) throw new NotFoundException();
 
-    return user;
+    const safeUser = { ...user };
+    delete safeUser.password;
+    return safeUser;
   }
 
   createNewUser(dto: CreateUserDto): User {

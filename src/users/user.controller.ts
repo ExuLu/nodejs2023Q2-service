@@ -22,7 +22,7 @@ export class UserController {
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string): User {
+  getUserById(@Param('id') id: string): safeUser {
     return this.userService.getUserById(id);
   }
 
