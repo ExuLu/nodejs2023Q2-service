@@ -1,6 +1,6 @@
 import { Album } from '../albums/albumType';
 import { Artist } from '../artists/artistInterface';
-import { Favorites } from '../types/favorites';
+import { Favorites } from '../favorites/favoritesType';
 import { Track } from '../tracks/trackInterface';
 import { User } from '../users/userInterface';
 
