@@ -26,6 +26,9 @@ export class FavoriteService {
   }
 
   deleteTrackFromFavs(id: string): void {
+    const idIsValid = validate(id);
+    if (!idIsValid) throw new NotValidIdException();
+
     const trackIndex: number = database.favorites.tracks.findIndex(
       (tr) => tr.id === id,
     );
