@@ -9,13 +9,13 @@ import { AlbumService } from './albums/album.service';
 import { UserModule } from './users/user.module';
 import { TrackModule } from './tracks/track.module';
 import { FavoritesModule } from './favorites/favorites.module';
+import { ArtistModule } from './artists/artist.module';
 
 @Module({
-  imports: [UserModule, TrackModule, FavoritesModule],
-  controllers: [AppController, ArtistController, AlbumController],
+  imports: [UserModule, TrackModule, FavoritesModule, ArtistModule],
+  controllers: [AppController, AlbumController],
   providers: [
     AppService,
-    ArtistService,
     AlbumService,
     {
       provide: APP_PIPE,
