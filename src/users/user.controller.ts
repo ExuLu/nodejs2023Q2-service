@@ -35,7 +35,7 @@ export class UserController {
   updatePassword(
     @Param('id') id: string,
     @Body() updatePasswordDto: UpdateUserDto,
-  ): User {
+  ): SafeUser {
     return this.userService.updateUserPassword(id, updatePasswordDto);
   }
 

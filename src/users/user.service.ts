@@ -42,7 +42,7 @@ export class UsersService {
     return safeUser;
   }
 
-  updateUserPassword(id: string, dto: UpdateUserDto): User {
+  updateUserPassword(id: string, dto: UpdateUserDto): SafeUser {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
@@ -55,7 +55,10 @@ export class UsersService {
     user.password = newPassword;
     user.updatedAt = Date.now();
     user.version++;
-    return user;
+
+    const safeUser = { ...user };
+    delete safeUser.password;
+    return safeUser;
   }
 
   deleteUser(id: string): void {
