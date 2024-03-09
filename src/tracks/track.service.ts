@@ -83,6 +83,8 @@ export class TrackService {
     const trackIndex: number = database.tracks.findIndex((tr) => tr.id === id);
     if (trackIndex < 0) throw new NotFoundException();
 
+    database.favorites.tracks.filter((tr) => tr.id !== id);
+
     database.tracks.splice(trackIndex, 1);
   }
 }
