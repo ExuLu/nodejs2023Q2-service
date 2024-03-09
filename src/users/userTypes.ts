@@ -7,4 +7,4 @@ export interface User {
   updatedAt: number;
 }
 
-export type safeUser = Omit<User, 'password'>;
+export type SafeUser = Omit<User, 'password'>;

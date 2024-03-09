@@ -9,7 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/user.service';
-import { User, safeUser } from 'src/users/userTypes';
+import { User, SafeUser } from 'src/users/userTypes';
 import { CreateUserDto, UpdateUserDto } from 'src/users/userDtos';
 
 @Controller('user')
@@ -17,12 +17,12 @@ export class UserController {
   constructor(private readonly userService: UsersService) {}
 
   @Get()
-  getAllUsers(): safeUser[] {
+  getAllUsers(): SafeUser[] {
     return this.userService.getAllUsers();
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string): safeUser {
+  getUserById(@Param('id') id: string): SafeUser {
     return this.userService.getUserById(id);
   }
 
