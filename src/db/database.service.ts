@@ -28,4 +28,9 @@ export class newDb {
   getAllUsers(): User[] {
     return this.users;
   }
+
+  getUser(id: string): User {
+    const user = this.users.find((us) => us.id === id);
+    return user || null;
+  }
 }
