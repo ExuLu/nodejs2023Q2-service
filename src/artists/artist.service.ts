@@ -52,10 +52,18 @@ export class ArtistService {
     database.tracks.forEach((tr) => {
       if (tr.artistId === id) tr.artistId = null;
     });
+    database.favorites.tracks.forEach((tr) => {
+      if (tr.artistId === id) tr.artistId = null;
+    });
 
     database.albums.forEach((alb) => {
       if (alb.artistId === id) alb.artistId = null;
     });
+    database.favorites.albums.forEach((alb) => {
+      if (alb.artistId === id) alb.artistId = null;
+    });
+
+    database.favorites.artists.filter((art) => art.id !== id);
 
     const artistIndex = database.artists.findIndex((art) => art.id === id);
     database.artists.splice(artistIndex, 1);
