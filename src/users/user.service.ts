@@ -28,7 +28,7 @@ export class UsersService {
     return safeUser;
   }
 
-  createNewUser(dto: CreateUserDto): User {
+  createNewUser(dto: CreateUserDto): SafeUser {
     const newUser: User = {
       ...dto,
       id: uuidv4(),
@@ -37,7 +37,9 @@ export class UsersService {
       updatedAt: Date.now(),
     };
     database.users.push(newUser);
-    return newUser;
+    const safeUser = { ...newUser };
+    delete safeUser.password;
+    return safeUser;
   }
 
   updateUserPassword(id: string, dto: UpdateUserDto): User {
