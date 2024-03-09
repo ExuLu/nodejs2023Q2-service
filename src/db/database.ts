@@ -1,4 +1,4 @@
-import { Db } from 'src/db/databaseType';
+import { Db } from 'src/db/database.service';
 import { v4 as uuidv4 } from 'uuid';
 
 export const database: Db = {
