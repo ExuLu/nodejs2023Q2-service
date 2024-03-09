@@ -20,7 +20,7 @@ export class TrackService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const track: Track = database.tracks.find((tr) => tr.id === id);
+    const track: Track = this.db.getTrack(id);
     if (!track) throw new NotFoundException();
 
     return track;

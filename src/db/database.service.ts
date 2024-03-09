@@ -53,4 +53,9 @@ export class newDb {
   getAllTracks(): Track[] {
     return this.tracks;
   }
+
+  getTrack(id: string): Track {
+    const track = this.tracks.find((tr) => tr.id === id);
+    return track || null;
+  }
 }
