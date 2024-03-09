@@ -51,15 +51,13 @@ export class UsersService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const user: User = database.users.find((us) => us.id === id);
+    const user: User = this.db.getUser(id);
     if (!user) throw new NotFoundException();
 
     const { oldPassword, newPassword } = dto;
     if (user.password !== oldPassword) throw new WrongPasswordException();
 
-    user.password = newPassword;
-    user.updatedAt = Date.now();
-    user.version++;
+    this.db.changeUser(id, newPassword);
 
     const safeUser = { ...user };
     delete safeUser.password;

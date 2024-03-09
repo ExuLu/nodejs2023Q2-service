@@ -37,4 +37,11 @@ export class newDb {
   addUser(user: User) {
     this.users.push(user);
   }
+
+  changeUser(id: string, newPassword: string) {
+    const user = this.getUser(id);
+    user.password = newPassword;
+    user.updatedAt = Date.now();
+    user.version++;
+  }
 }
