@@ -6,11 +6,14 @@ import { Artist } from 'src/artists/artistInterface';
 import { Track } from 'src/tracks/trackInterface';
 import { CreateTrackDto, UpdateTrackDto } from 'src/tracks/trackDtos';
 import { validate, v4 as uuidv4 } from 'uuid';
+import { newDb } from 'src/db/database.service';
 
 @Injectable()
 export class TrackService {
+  constructor(private readonly db: newDb) {}
+
   getAllTracks(): Track[] {
-    return database.tracks;
+    return this.db.getAllTracks();
   }
 
   getTrackById(id: string): Track {

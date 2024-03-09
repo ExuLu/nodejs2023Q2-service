@@ -49,4 +49,8 @@ export class newDb {
     const userIndex = this.users.findIndex((us) => us.id === id);
     this.users.splice(userIndex, 1);
   }
+
+  getAllTracks(): Track[] {
+    return this.tracks;
+  }
 }
