@@ -24,7 +24,7 @@ export class UsersService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const user: User = this.db.getUser(id);
+    const user: User | null = this.db.getUser(id);
     if (!user) throw new NotFoundException();
 
     const safeUser = { ...user };
@@ -50,7 +50,7 @@ export class UsersService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    let user: User = this.db.getUser(id);
+    let user: User | null = this.db.getUser(id);
     if (!user) throw new NotFoundException();
 
     const { oldPassword, newPassword } = dto;
@@ -68,7 +68,7 @@ export class UsersService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const user = this.db.getUser(id);
+    const user: User | null = this.db.getUser(id);
     if (!user) throw new NotFoundException();
 
     this.db.deleteUser(id);

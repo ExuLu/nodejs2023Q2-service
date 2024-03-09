@@ -20,17 +20,19 @@ export class TrackService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const track: Track = this.db.getTrack(id);
+    const track: Track | null = this.db.getTrack(id);
     if (!track) throw new NotFoundException();
 
     return track;
   }
 
   addNewTrack(dto: CreateTrackDto): Track {
+    const { artistId, albumId } = dto;
+
     const idsAreValid: boolean =
-      (validate(dto.albumId) && validate(dto.artistId)) ||
-      dto.albumId === null ||
-      dto.artistId === null;
+      (validate(albumId) && validate(artistId)) ||
+      albumId === null ||
+      artistId === null;
     if (!idsAreValid) throw new NotValidIdException();
 
     const newTrack: Track = {
@@ -38,15 +40,15 @@ export class TrackService {
       ...dto,
     };
 
-    const artist: Artist = database.artists.find(
-      (art) => art.id === dto.artistId,
+    const artist: Artist | null = this.db.getArtist(artistId);
+    if (!artist && artistId !== null) newTrack.artistId = null;
+
+    const album: Album | null = database.albums.find(
+      (alb) => alb.id === albumId,
     );
-    if (!artist && dto.artistId !== null) newTrack.artistId = null;
+    if (!album && albumId !== null) newTrack.albumId = null;
 
-    const album: Album = database.albums.find((alb) => alb.id === dto.albumId);
-    if (!album && dto.albumId !== null) newTrack.albumId = null;
-
-    database.tracks.push(newTrack);
+    this.db.addTrack(newTrack);
     return newTrack;
   }
 

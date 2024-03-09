@@ -29,7 +29,7 @@ export class newDb {
     return this.users;
   }
 
-  getUser(id: string): User {
+  getUser(id: string): User | null {
     const user = this.users.find((us) => us.id === id);
     return user || null;
   }
@@ -54,8 +54,22 @@ export class newDb {
     return this.tracks;
   }
 
-  getTrack(id: string): Track {
+  getTrack(id: string): Track | null {
     const track = this.tracks.find((tr) => tr.id === id);
     return track || null;
+  }
+
+  addTrack(track: Track): void {
+    this.tracks.push(track);
+  }
+
+  getArtist(id: string): Artist | null {
+    const artist = this.artists.find((art) => art.id === id);
+    return artist || null;
+  }
+
+  getAlbum(id: string): Album | null {
+    const album = this.albums.find((alb) => alb.id === id);
+    return album || null;
   }
 }
