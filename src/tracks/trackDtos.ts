@@ -10,7 +10,7 @@ export class CreateTrackDto {
   @IsNotEmpty()
   artistId: string | null;
 
-  @ValidateIf((body) => body.artistId !== null)
+  @ValidateIf((body) => body.albumId !== null)
   @IsString()
   @IsNotEmpty()
   albumId: string | null;
