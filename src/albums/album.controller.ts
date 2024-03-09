@@ -21,7 +21,7 @@ export class AlbumController {
     return this.albumService.getAllAlbums();
   }
 
-  @Get('id')
+  @Get(':id')
   getAlbumById(@Param('id') id: string): Album {
     return this.albumService.getAlbumById(id);
   }
@@ -31,12 +31,12 @@ export class AlbumController {
     return this.albumService.createNewAlbum(createAlbumDto);
   }
 
-  @Put('id')
+  @Put(':id')
   updateAlbum(@Param('id') id: string, @Body() updateAlbumDto: UpdateAlbumDto) {
     return this.albumService.updateAlbumInfo(id, updateAlbumDto);
   }
 
-  @Delete('id')
+  @Delete(':id')
   @HttpCode(204)
   deleteAlbum(@Param('id') id: string): void {
     return this.albumService.deleteAlbum(id);
