@@ -34,14 +34,19 @@ export class newDb {
     return user || null;
   }
 
-  addUser(user: User) {
+  addUser(user: User): void {
     this.users.push(user);
   }
 
-  changeUser(id: string, newPassword: string) {
+  changeUser(id: string, newPassword: string): void {
     const user = this.getUser(id);
     user.password = newPassword;
     user.updatedAt = Date.now();
     user.version++;
+  }
+
+  deleteUser(id: string): void {
+    const userIndex = this.users.findIndex((us) => us.id === id);
+    this.users.splice(userIndex, 1);
   }
 }

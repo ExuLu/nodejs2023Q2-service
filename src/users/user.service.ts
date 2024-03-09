@@ -69,9 +69,9 @@ export class UsersService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const userIndex = database.users.findIndex((us) => us.id === id);
-    if (userIndex < 0) throw new NotFoundException();
+    const user = this.db.getUser(id);
+    if (!user) throw new NotFoundException();
 
-    database.users.splice(userIndex, 1);
+    this.db.deleteUser(id);
   }
 }
