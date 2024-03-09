@@ -65,6 +65,16 @@ export class AlbumService {
       (alb) => alb.id === id,
     );
     if (albumIndex < 0) throw new NotFoundException();
+
+    database.tracks.forEach((tr) => {
+      if (tr.albumId === id) tr.albumId = null;
+    });
+    database.favorites.tracks.forEach((tr) => {
+      if (tr.albumId === id) tr.albumId = null;
+    });
+
+    database.favorites.albums.filter((alb) => alb.id !== id);
+
     database.albums.splice(albumIndex, 1);
   }
 }
