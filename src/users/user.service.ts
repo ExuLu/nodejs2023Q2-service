@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { database } from 'src/db/database';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { WrongPasswordException } from 'src/errors/wrongPassword';
 import { User, SafeUser } from 'src/users/userTypes';
