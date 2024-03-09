@@ -88,6 +88,13 @@ export class newDb {
     this.artists.push(artist);
   }
 
+  changeArtist(id: string, newArtist: Artist): void {
+    const artist = this.getArtist(id);
+    Object.keys(artist).forEach((key) => {
+      artist[key] = newArtist[key];
+    });
+  }
+
   getAlbum(id: string): Album | null {
     const album = this.albums.find((alb) => alb.id === id);
     return album || null;

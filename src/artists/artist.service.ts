@@ -34,14 +34,11 @@ export class ArtistService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artistIndex: number = database.artists.findIndex(
-      (art) => art.id === id,
-    );
-    if (artistIndex < 0) throw new NotFoundException();
+    const artist: Artist = this.db.getArtist(id);
+    if (!artist) throw new NotFoundException();
 
     const newArtist = { id, ...dto };
-    database.artists.splice(artistIndex, 1);
-    database.artists.push(newArtist);
+    this.db.changeArtist(id, newArtist);
     return newArtist;
   }
 
