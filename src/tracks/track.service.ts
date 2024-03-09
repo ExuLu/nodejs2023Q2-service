@@ -85,14 +85,14 @@ export class TrackService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const trackIndex: number = database.tracks.findIndex((tr) => tr.id === id);
-    if (trackIndex < 0) throw new NotFoundException();
+    const track: Track = this.db.getTrack(id);
+    if (!track) throw new NotFoundException();
 
-    const trackIndexFav = database.favorites.tracks.findIndex(
-      (tr) => tr.id === id,
-    );
-    database.favorites.tracks.splice(trackIndexFav, 1);
+    // const trackIndexFav = database.favorites.tracks.findIndex(
+    //   (tr) => tr.id === id,
+    // );
+    // database.favorites.tracks.splice(trackIndexFav, 1);
 
-    database.tracks.splice(trackIndex, 1);
+    this.db.deleteTrack(id);
   }
 }

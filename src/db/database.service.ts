@@ -70,6 +70,11 @@ export class newDb {
     });
   }
 
+  deleteTrack(id: string): void {
+    const trackId = this.tracks.findIndex((tr) => tr.id === id);
+    this.tracks.splice(trackId, 1);
+  }
+
   getArtist(id: string): Artist | null {
     const artist = this.artists.find((art) => art.id === id);
     return artist || null;
