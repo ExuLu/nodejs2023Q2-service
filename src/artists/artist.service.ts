@@ -49,26 +49,15 @@ export class ArtistService {
     const artist: Artist = database.artists.find((art) => art.id === id);
     if (!artist) throw new NotFoundException();
 
-    database.tracks.forEach((tr) => {
-      if (tr.artistId === id) tr.artistId = null;
-    });
-    database.favorites.tracks.forEach((tr) => {
-      if (tr.artistId === id) tr.artistId = null;
-    });
+    this.db.deleteArtistFromTrack(id);
 
-    database.albums.forEach((alb) => {
-      if (alb.artistId === id) alb.artistId = null;
-    });
-    database.favorites.albums.forEach((alb) => {
-      if (alb.artistId === id) alb.artistId = null;
-    });
+    this.db.deleteArtistFromAlbum(id);
 
-    const artistIndexFav = database.favorites.artists.findIndex(
-      (art) => art.id === id,
-    );
-    database.favorites.artists.splice(artistIndexFav, 1);
+    // const artistIndexFav = database.favorites.artists.findIndex(
+    //   (art) => art.id === id,
+    // );
+    // database.favorites.artists.splice(artistIndexFav, 1);
 
-    const artistIndex = database.artists.findIndex((art) => art.id === id);
-    database.artists.splice(artistIndex, 1);
+    this.db.deleteArtist(id);
   }
 }

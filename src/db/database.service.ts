@@ -75,6 +75,12 @@ export class newDb {
     this.tracks.splice(trackId, 1);
   }
 
+  deleteArtistFromTrack(artistId: string): void {
+    this.tracks.forEach((tr) => {
+      if (tr.artistId === artistId) tr.artistId = null;
+    });
+  }
+
   getAllArtists(): Artist[] {
     return this.artists;
   }
@@ -95,8 +101,19 @@ export class newDb {
     });
   }
 
+  deleteArtist(id: string): void {
+    const artistIndex = this.artists.findIndex((art) => art.id === id);
+    this.artists.splice(artistIndex, 1);
+  }
+
   getAlbum(id: string): Album | null {
     const album = this.albums.find((alb) => alb.id === id);
     return album || null;
+  }
+
+  deleteArtistFromAlbum(artistId: string): void {
+    this.albums.forEach((alb) => {
+      if (alb.artistId === artistId) alb.id = null;
+    });
   }
 }
