@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { Album } from '../albums/albumType';
 import { Artist } from '../artists/artistInterface';
 import { Favorites } from '../favorites/favoritesType';
@@ -12,6 +13,7 @@ export interface Db {
   favorites: Favorites;
 }
 
+@Injectable()
 export class newDb {
   private readonly users: User[] = [];
   private readonly artists: Artist[] = [];
@@ -22,4 +24,8 @@ export class newDb {
     albums: [],
     artists: [],
   };
+
+  getAllUsers(): User[] {
+    return this.users;
+  }
 }

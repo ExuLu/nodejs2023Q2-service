@@ -5,11 +5,15 @@ import { WrongPasswordException } from 'src/errors/wrongPassword';
 import { User, SafeUser } from 'src/users/userTypes';
 import { CreateUserDto, UpdateUserDto } from 'src/users/userDtos';
 import { validate, v4 as uuidv4 } from 'uuid';
+import { newDb } from 'src/db/databaseType';
 
 @Injectable()
 export class UsersService {
+  constructor(private readonly db: newDb) {}
+
   getAllUsers(): SafeUser[] {
-    const safeUsers = database.users.map((user) => {
+    const users = this.db.getAllUsers();
+    const safeUsers = users.map((user) => {
       delete user.password;
       return user;
     });
