@@ -41,7 +41,7 @@ export class UsersService {
       createdAt: Date.now(),
       updatedAt: Date.now(),
     };
-    database.users.push(newUser);
+    this.db.addUser(newUser);
     const safeUser = { ...newUser };
     delete safeUser.password;
     return safeUser;

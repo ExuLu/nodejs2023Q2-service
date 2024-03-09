@@ -33,4 +33,8 @@ export class newDb {
     const user = this.users.find((us) => us.id === id);
     return user || null;
   }
+
+  addUser(user: User) {
+    this.users.push(user);
+  }
 }
