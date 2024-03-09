@@ -56,29 +56,29 @@ export class TrackService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
+    const { albumId, artistId } = dto;
+
     const idsAreValid: boolean =
-      (validate(dto.albumId) && validate(dto.artistId)) ||
-      dto.albumId === null ||
-      dto.artistId === null ||
-      !dto.albumId ||
-      !dto.artistId;
+      (validate(albumId) && validate(artistId)) ||
+      albumId === null ||
+      artistId === null ||
+      !albumId ||
+      !artistId;
     if (!idsAreValid) throw new NotValidIdException();
 
     const updatedTrack: Track = { id, ...dto };
-    const trackIndex: number = database.tracks.findIndex((tr) => tr.id === id);
-    if (trackIndex < 0) throw new NotFoundException();
+    let track: Track = this.db.getTrack(id);
+    if (!track) throw new NotFoundException();
 
-    const artist: Artist = database.artists.find(
-      (art) => art.id === dto.artistId,
-    );
-    if (!artist && dto.artistId !== null) updatedTrack.artistId = null;
+    const artist: Artist = this.db.getArtist(artistId);
+    if (!artist && artistId !== null) updatedTrack.artistId = null;
 
-    const album: Album = database.albums.find((alb) => alb.id === dto.albumId);
-    if (!album && dto.albumId !== null) updatedTrack.albumId = null;
+    const album: Album = this.db.getAlbum(albumId);
+    if (!album && albumId !== null) updatedTrack.albumId = null;
 
-    database.tracks.splice(trackIndex, 1);
-    database.tracks.push(updatedTrack);
-    return updatedTrack;
+    this.db.changeTrack(id, updatedTrack);
+    track = this.db.getTrack(id);
+    return track;
   }
 
   deleteTrack(id: string): void {

@@ -63,6 +63,13 @@ export class newDb {
     this.tracks.push(track);
   }
 
+  changeTrack(id: string, newTrack: Track): void {
+    const track = this.getTrack(id);
+    Object.keys(track).forEach((key) => {
+      track[key] = newTrack[key];
+    });
+  }
+
   getArtist(id: string): Artist | null {
     const artist = this.artists.find((art) => art.id === id);
     return artist || null;
