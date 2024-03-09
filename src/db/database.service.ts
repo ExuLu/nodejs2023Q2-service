@@ -75,10 +75,16 @@ export class newDb {
     this.tracks.splice(trackId, 1);
   }
 
+  getAllArtists(): Artist[] {
+    return this.artists;
+  }
+
   getArtist(id: string): Artist | null {
     const artist = this.artists.find((art) => art.id === id);
     return artist || null;
   }
+
+  
 
   getAlbum(id: string): Album | null {
     const album = this.albums.find((alb) => alb.id === id);

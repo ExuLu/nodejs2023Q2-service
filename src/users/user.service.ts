@@ -12,7 +12,6 @@ export class UsersService {
 
   getAllUsers(): SafeUser[] {
     const users = this.db.getAllUsers();
-    console.log(users);
     const safeUsers = users.map((user) => {
       delete user.password;
       return user;

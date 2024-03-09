@@ -4,18 +4,21 @@ import { database } from 'src/db/database';
 import { CreateArtistDto, UpdateArtistDto } from './artistDtos';
 import { validate, v4 as uuidv4 } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
+import { newDb } from 'src/db/database.service';
 
 @Injectable()
 export class ArtistService {
+  constructor(private readonly db: newDb) {}
+
   getAllArtists(): Artist[] {
-    return database.artists;
+    return this.db.getAllArtists();
   }
 
   getArtistById(id: string): Artist {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artist: Artist = database.artists.find((art) => art.id === id);
+    const artist: Artist = this.db.getArtist(id);
     if (!artist) throw new NotFoundException();
 
     return artist;
