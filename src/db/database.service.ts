@@ -84,7 +84,9 @@ export class newDb {
     return artist || null;
   }
 
-  
+  addArtist(artist: Artist): void {
+    this.artists.push(artist);
+  }
 
   getAlbum(id: string): Album | null {
     const album = this.albums.find((alb) => alb.id === id);
