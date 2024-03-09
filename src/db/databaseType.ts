@@ -11,3 +11,15 @@ export interface Db {
   albums: Album[];
   favorites: Favorites;
 }
+
+export class newDb {
+  private readonly users: User[] = [];
+  private readonly artists: Artist[] = [];
+  private readonly tracks: Track[] = [];
+  private readonly albums: Album[] = [];
+  private readonly favorites: Favorites = {
+    tracks: [],
+    albums: [],
+    artists: [],
+  };
+}
