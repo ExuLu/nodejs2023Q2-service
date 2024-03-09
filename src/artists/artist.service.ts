@@ -63,7 +63,10 @@ export class ArtistService {
       if (alb.artistId === id) alb.artistId = null;
     });
 
-    database.favorites.artists.filter((art) => art.id !== id);
+    const artistIndexFav = database.favorites.artists.findIndex(
+      (art) => art.id === id,
+    );
+    database.favorites.artists.splice(artistIndexFav, 1);
 
     const artistIndex = database.artists.findIndex((art) => art.id === id);
     database.artists.splice(artistIndex, 1);

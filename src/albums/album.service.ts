@@ -73,7 +73,10 @@ export class AlbumService {
       if (tr.albumId === id) tr.albumId = null;
     });
 
-    database.favorites.albums.filter((alb) => alb.id !== id);
+    const albIndexFav = database.favorites.albums.findIndex(
+      (alb) => alb.id === id,
+    );
+    database.favorites.albums.splice(albIndexFav, 1);
 
     database.albums.splice(albumIndex, 1);
   }
