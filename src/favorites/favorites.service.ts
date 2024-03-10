@@ -37,12 +37,9 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const trackIndex: number = database.favorites.tracks.findIndex(
-      (tr) => tr.id === id,
-    );
-    if (trackIndex < 0)
-      throw new NotFoundException('Track is not found in favorites');
-    database.favorites.tracks.splice(trackIndex, 1);
+    const track: Track = this.db.getTrackFromFavs(id);
+    if (!track) throw new NotFoundException('Track is not found in favorites');
+    this.db.deleteTrackFromFavs(id);
   }
 
   addAlbumToFavs(id: string): object {

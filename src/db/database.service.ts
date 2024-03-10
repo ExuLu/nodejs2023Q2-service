@@ -156,4 +156,11 @@ export class newDb {
     const track = this.tracks.find((tr) => tr.id === id);
     this.favorites.tracks.push(track);
   }
+
+  deleteTrackFromFavs(id: string): void {
+    const trackId: number = this.favorites.tracks.findIndex(
+      (tr) => tr.id === id,
+    );
+    this.favorites.tracks.splice(trackId, 1);
+  }
 }
