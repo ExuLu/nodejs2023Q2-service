@@ -139,7 +139,7 @@ export class newDb {
 
   deleteArtistFromAlbum(artistId: string): void {
     this.albums.forEach((alb) => {
-      if (alb.artistId === artistId) alb.id = null;
+      if (alb.artistId === artistId) alb.artistId = null;
     });
   }
 
@@ -148,16 +148,18 @@ export class newDb {
   }
 
   getTrackFromFavs(id: string): Track | null {
+    if (this.favorites.tracks.length < 1) return null;
     const track = this.favorites.tracks.find((tr) => tr.id === id);
     return track || null;
   }
 
   addTrackToFavs(id: string): void {
-    const track = this.getTrackFromFavs(id);
+    const track = this.getTrack(id);
     this.favorites.tracks.push(track);
   }
 
   deleteTrackFromFavs(id: string): void {
+    if (this.favorites.tracks.length < 1) return;
     const trackId: number = this.favorites.tracks.findIndex(
       (tr) => tr.id === id,
     );
@@ -170,7 +172,7 @@ export class newDb {
   }
 
   addArtistToFavs(id: string): void {
-    const artist = this.getArtistFromFavs(id);
+    const artist = this.getArtist(id);
     this.favorites.artists.push(artist);
   }
 
@@ -187,7 +189,7 @@ export class newDb {
   }
 
   addAlbumToFavs(id: string): void {
-    const album = this.getAlbumFromFavs(id);
+    const album = this.getAlbum(id);
     this.favorites.albums.push(album);
   }
 
