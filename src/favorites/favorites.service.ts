@@ -8,6 +8,7 @@ import { Favorites } from './favoritesType';
 import { validate } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { newDb } from 'src/db/database.service';
+import { Track } from 'src/tracks/trackInterface';
 
 @Injectable()
 export class FavoriteService {
@@ -21,14 +22,14 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const track = database.tracks.find((tr) => tr.id === id);
+    const track = this.db.getTrack(id);
     if (!track) throw new UnprocessableEntityException('Track is not found');
 
-    const trackIsInFavs = database.favorites.tracks.find((tr) => tr.id === id);
+    const trackIsInFavs: Track | null = this.db.getTrackFromFavs(id);
     if (trackIsInFavs)
       throw new UnprocessableEntityException('Track is already in favorites');
 
-    database.favorites.tracks.push(track);
+    this.db.addTrackToFavs(id);
     return { message: 'Track was successfully added to favorites' };
   }
 

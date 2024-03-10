@@ -146,4 +146,14 @@ export class newDb {
   getAllFavorites(): Favorites {
     return this.favorites;
   }
+
+  getTrackFromFavs(id: string): Track | null {
+    const track = this.favorites.tracks.find((tr) => tr.id === id);
+    return track || null;
+  }
+
+  addTrackToFavs(id: string): void {
+    const track = this.tracks.find((tr) => tr.id === id);
+    this.favorites.tracks.push(track);
+  }
 }
