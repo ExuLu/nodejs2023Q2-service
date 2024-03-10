@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { database } from 'src/db/database';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { Album } from 'src/albums/albumType';
 import { Artist } from 'src/artists/artistInterface';
@@ -27,7 +26,7 @@ export class TrackService {
   }
 
   addNewTrack(dto: CreateTrackDto): Track {
-    const { artistId, albumId } = dto;
+    // const { artistId, albumId } = dto;
 
     // const idsAreValid: boolean =
     //   (validate(albumId) && validate(artistId)) ||
