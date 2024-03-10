@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Album } from '../albums/albumType';
 import { Artist } from '../artists/artistInterface';
-import { Favorites } from '../favorites/favoritesType';
+import { Favorites } from '../favorites/favoritesTypes';
 import { Track } from '../tracks/trackInterface';
 import { User } from '../users/userTypes';
 
@@ -147,55 +147,50 @@ export class newDb {
     return this.favorites;
   }
 
-  getTrackFromFavs(id: string): Track | null {
-    if (this.favorites.tracks.length < 1) return null;
-    const track = this.favorites.tracks.find((tr) => tr.id === id);
-    return track || null;
+  getTrackFromFavs(id: string): boolean {
+    if (this.favorites.tracks.length < 1) return false;
+    const trackInFavs = this.favorites.tracks.includes(id);
+    return trackInFavs;
   }
 
   addTrackToFavs(id: string): void {
-    const track = this.getTrack(id);
-    this.favorites.tracks.push(track);
+    this.favorites.tracks.push(id);
   }
 
   deleteTrackFromFavs(id: string): void {
     if (this.favorites.tracks.length < 1) return;
-    const trackId: number = this.favorites.tracks.findIndex(
-      (tr) => tr.id === id,
-    );
+    const trackId: number = this.favorites.tracks.findIndex((tr) => tr === id);
     this.favorites.tracks.splice(trackId, 1);
   }
 
-  getArtistFromFavs(id: string): Artist | null {
-    const artist = this.favorites.artists.find((art) => art.id === id);
-    return artist || null;
+  getArtistFromFavs(id: string): boolean {
+    const artistIsInFavs = this.favorites.artists.includes(id);
+    return artistIsInFavs;
   }
 
   addArtistToFavs(id: string): void {
-    const artist = this.getArtist(id);
-    this.favorites.artists.push(artist);
+    this.favorites.artists.push(id);
   }
 
   deleteArtistFromFavs(id: string): void {
     const artistId: number = this.favorites.artists.findIndex(
-      (art) => art.id === id,
+      (art) => art === id,
     );
     this.favorites.artists.splice(artistId, 1);
   }
 
-  getAlbumFromFavs(id: string): Album | null {
-    const album = this.favorites.albums.find((alb) => alb.id === id);
-    return album || null;
+  getAlbumFromFavs(id: string): boolean {
+    const albumInFavs = this.favorites.albums.includes(id);
+    return albumInFavs;
   }
 
   addAlbumToFavs(id: string): void {
-    const album = this.getAlbum(id);
-    this.favorites.albums.push(album);
+    this.favorites.albums.push(id);
   }
 
   deleteAlbumFromFavs(id: string): void {
     const albumId: number = this.favorites.albums.findIndex(
-      (alb) => alb.id === id,
+      (alb) => alb === id,
     );
     this.favorites.albums.splice(albumId, 1);
   }

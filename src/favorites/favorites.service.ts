@@ -3,13 +3,10 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { Favorites } from './favoritesType';
+import { Favorites, FavoritesResponse } from './favoritesTypes';
 import { validate } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { newDb } from 'src/db/database.service';
-import { Track } from 'src/tracks/trackInterface';
-import { Artist } from 'src/artists/artistInterface';
-import { Album } from 'src/albums/albumType';
 
 @Injectable()
 export class FavoriteService {
@@ -19,6 +16,22 @@ export class FavoriteService {
     return this.db.getAllFavorites();
   }
 
+  getAllFavoritesResponse(): FavoritesResponse {
+    const { tracks, artists, albums } = this.getAllFavorites();
+
+    const tracksInFavs = tracks.map((id) => this.db.getTrack(id));
+    const artistsInFavs = artists.map((id) => this.db.getArtist(id));
+    const albumsInFavs = albums.map((id) => this.db.getAlbum(id));
+
+    const response: FavoritesResponse = {
+      tracks: tracksInFavs,
+      artists: artistsInFavs,
+      albums: albumsInFavs,
+    };
+
+    return response;
+  }
+
   addTrackToFavs(id: string): object {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
@@ -26,7 +39,7 @@ export class FavoriteService {
     const track = this.db.getTrack(id);
     if (!track) throw new UnprocessableEntityException('Track is not found');
 
-    const trackIsInFavs: Track | null = this.db.getTrackFromFavs(id);
+    const trackIsInFavs: boolean = this.db.getTrackFromFavs(id);
     if (trackIsInFavs)
       throw new UnprocessableEntityException('Track is already in favorites');
 
@@ -38,8 +51,9 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const track: Track = this.db.getTrackFromFavs(id);
-    if (!track) throw new NotFoundException('Track is not found in favorites');
+    const trackInFavs: boolean = this.db.getTrackFromFavs(id);
+    if (!trackInFavs)
+      throw new NotFoundException('Track is not found in favorites');
     this.db.deleteTrackFromFavs(id);
   }
 
@@ -62,7 +76,7 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const album: Album = this.db.getAlbumFromFavs(id);
+    const album: boolean = this.db.getAlbumFromFavs(id);
     if (!album) throw new NotFoundException('Album is not found in favorites');
     this.db.deleteAlbumFromFavs(id);
   }
@@ -86,7 +100,7 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artist: Artist = this.db.getArtistFromFavs(id);
+    const artist: boolean = this.db.getArtistFromFavs(id);
     if (!artist)
       throw new NotFoundException('Artist is not found in favorites');
     this.db.deleteArtistFromFavs(id);

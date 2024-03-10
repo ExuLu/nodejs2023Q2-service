@@ -29,24 +29,24 @@ export class TrackService {
   addNewTrack(dto: CreateTrackDto): Track {
     const { artistId, albumId } = dto;
 
-    const idsAreValid: boolean =
-      (validate(albumId) && validate(artistId)) ||
-      albumId === null ||
-      artistId === null;
-    if (!idsAreValid) throw new NotValidIdException();
+    // const idsAreValid: boolean =
+    //   (validate(albumId) && validate(artistId)) ||
+    //   albumId === null ||
+    //   artistId === null;
+    // if (!idsAreValid) throw new NotValidIdException();
 
     const newTrack: Track = {
       id: uuidv4(),
       ...dto,
     };
 
-    const artist: Artist | null = this.db.getArtist(artistId);
-    if (!artist && artistId !== null) newTrack.artistId = null;
+    // const artist: Artist | null = this.db.getArtist(artistId);
+    // if (!artist && artistId !== null) newTrack.artistId = null;
 
-    const album: Album | null = database.albums.find(
-      (alb) => alb.id === albumId,
-    );
-    if (!album && albumId !== null) newTrack.albumId = null;
+    // const album: Album | null = database.albums.find(
+    //   (alb) => alb.id === albumId,
+    // );
+    // if (!album && albumId !== null) newTrack.albumId = null;
 
     this.db.addTrack(newTrack);
     return newTrack;
