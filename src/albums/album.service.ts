@@ -5,6 +5,7 @@ import { CreateAlbumDto, UpdateAlbumDto } from './albumDtos';
 import { v4 as uuidv4, validate } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { newDb } from 'src/db/database.service';
+import { Artist } from 'src/artists/artistInterface';
 
 @Injectable()
 export class AlbumService {
@@ -25,15 +26,16 @@ export class AlbumService {
   }
 
   createNewAlbum(dto: CreateAlbumDto): Album {
-    const idIsValid = dto.artistId === null || validate(dto.artistId);
+    const { artistId } = dto;
+    const idIsValid = artistId === null || validate(artistId);
     if (!idIsValid) throw new NotValidIdException();
 
     const newAlbum: Album = { id: uuidv4(), ...dto };
 
-    const artist = database.artists.find((art) => art.id === dto.artistId);
+    const artist: Artist = this.db.getArtist(artistId);
     if (!artist) newAlbum.artistId = null;
 
-    database.albums.push(newAlbum);
+    this.db.addAlbum(newAlbum);
 
     return newAlbum;
   }

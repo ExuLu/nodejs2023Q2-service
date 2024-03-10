@@ -115,6 +115,10 @@ export class newDb {
     return album || null;
   }
 
+  addAlbum(album: Album): void {
+    this.albums.push(album);
+  }
+
   deleteArtistFromAlbum(artistId: string): void {
     this.albums.forEach((alb) => {
       if (alb.artistId === artistId) alb.id = null;
