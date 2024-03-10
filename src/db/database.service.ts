@@ -132,6 +132,11 @@ export class newDb {
     });
   }
 
+  deleteAlbum(id: string): void {
+    const albumIndex = this.albums.findIndex((alb) => alb.id === id);
+    this.albums.splice(albumIndex, 1);
+  }
+
   deleteArtistFromAlbum(artistId: string): void {
     this.albums.forEach((alb) => {
       if (alb.artistId === artistId) alb.id = null;

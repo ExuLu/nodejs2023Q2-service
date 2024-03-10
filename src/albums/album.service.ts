@@ -67,18 +67,13 @@ export class AlbumService {
     const album: Album = this.db.getAlbum(id);
     if (!album) throw new NotFoundException();
 
-    database.tracks.forEach((tr) => {
-      if (tr.albumId === id) tr.albumId = null;
-    });
-    database.favorites.tracks.forEach((tr) => {
-      if (tr.albumId === id) tr.albumId = null;
-    });
+    this.db.deleteAlbumFromTrack(id);
 
-    const albIndexFav = database.favorites.albums.findIndex(
-      (alb) => alb.id === id,
-    );
-    database.favorites.albums.splice(albIndexFav, 1);
+    // const albIndexFav = database.favorites.albums.findIndex(
+    //   (alb) => alb.id === id,
+    // );
+    // database.favorites.albums.splice(albIndexFav, 1);
 
-    database.albums.splice(albumIndex, 1);
+    this.db.deleteAlbum(id);
   }
 }
