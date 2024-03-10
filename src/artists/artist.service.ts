@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Artist } from './artistInterface';
-import { database } from 'src/db/database';
 import { CreateArtistDto, UpdateArtistDto } from './artistDtos';
 import { validate, v4 as uuidv4 } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';

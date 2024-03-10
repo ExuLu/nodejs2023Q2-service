@@ -4,9 +4,12 @@ import { database } from 'src/db/database';
 import { CreateAlbumDto, UpdateAlbumDto } from './albumDtos';
 import { v4 as uuidv4, validate } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
+import { newDb } from 'src/db/database.service';
 
 @Injectable()
 export class AlbumService {
+  constructor(private readonly db: newDb) {}
+
   getAllAlbums(): Album[] {
     return database.albums;
   }
