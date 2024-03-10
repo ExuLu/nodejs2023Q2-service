@@ -46,7 +46,7 @@ export class ArtistService {
     const idIsValid: boolean = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artist: Artist = database.artists.find((art) => art.id === id);
+    const artist: Artist = this.db.getArtist(id);
     if (!artist) throw new NotFoundException();
 
     this.db.deleteArtistFromTrack(id);
