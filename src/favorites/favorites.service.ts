@@ -10,6 +10,7 @@ import { NotValidIdException } from 'src/errors/notValidId';
 import { newDb } from 'src/db/database.service';
 import { Track } from 'src/tracks/trackInterface';
 import { Artist } from 'src/artists/artistInterface';
+import { Album } from 'src/albums/albumType';
 
 @Injectable()
 export class FavoriteService {
@@ -47,14 +48,14 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const album = database.albums.find((alb) => alb.id === id);
+    const album = this.db.getAlbum(id);
     if (!album) throw new UnprocessableEntityException('Album is not found');
 
-    const albumIsInFavs = database.favorites.albums.find((tr) => tr.id === id);
+    const albumIsInFavs = this.db.getAlbumFromFavs(id);
     if (albumIsInFavs)
       throw new UnprocessableEntityException('Album is already in favorites');
 
-    database.favorites.albums.push(album);
+    this.db.addAlbumToFavs(id);
     return { message: 'Album was successfully added to favorites' };
   }
 
@@ -62,12 +63,9 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const albumIndex: number = database.favorites.albums.findIndex(
-      (tr) => tr.id === id,
-    );
-    if (albumIndex < 0)
-      throw new NotFoundException('Album is not found in favorites');
-    database.favorites.albums.splice(albumIndex, 1);
+    const album: Album = this.db.getAlbumFromFavs(id);
+    if (!album) throw new NotFoundException('Album is not found in favorites');
+    this.db.deleteAlbumFromFavs(id);
   }
 
   addArtistToFavs(id: string): object {
