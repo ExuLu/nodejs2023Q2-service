@@ -180,4 +180,21 @@ export class newDb {
     );
     this.favorites.artists.splice(artistId, 1);
   }
+
+  getAlbumFromFavs(id: string): Album | null {
+    const album = this.favorites.albums.find((alb) => alb.id === id);
+    return album || null;
+  }
+
+  addAlbumToFavs(id: string): void {
+    const album = this.getAlbumFromFavs(id);
+    this.favorites.albums.push(album);
+  }
+
+  deleteAlbumFromFavs(id: string): void {
+    const albumId: number = this.favorites.albums.findIndex(
+      (alb) => alb.id === id,
+    );
+    this.favorites.albums.splice(albumId, 1);
+  }
 }
