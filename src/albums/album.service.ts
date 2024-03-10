@@ -41,23 +41,21 @@ export class AlbumService {
   }
 
   updateAlbumInfo(id: string, dto: UpdateAlbumDto): Album {
+    const { artistId } = dto;
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artistIdIsValid = dto.artistId === null || validate(dto.artistId);
+    const artistIdIsValid = artistId === null || validate(artistId);
     if (!artistIdIsValid) throw new NotValidIdException();
 
-    const albumIndex: number = database.albums.findIndex(
-      (alb) => alb.id === id,
-    );
-    if (albumIndex < 0) throw new NotFoundException();
+    const album: Album = this.db.getAlbum(id);
+    if (!album) throw new NotFoundException();
 
     const updatedAlbum = { id, ...dto };
-    const artist = database.artists.find((art) => art.id === dto.artistId);
+    const artist = this.db.getArtist(artistId);
     if (!artist) updatedAlbum.artistId = null;
 
-    database.albums.splice(albumIndex, 1);
-    database.albums.push(updatedAlbum);
+    this.db.changeAlbum(id, updatedAlbum);
 
     return updatedAlbum;
   }

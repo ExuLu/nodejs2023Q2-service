@@ -119,6 +119,13 @@ export class newDb {
     this.albums.push(album);
   }
 
+  changeAlbum(id: string, newAlbum: Album): void {
+    const album = this.getAlbum(id);
+    Object.keys(album).forEach((key) => {
+      album[key] = newAlbum[key];
+    });
+  }
+
   deleteArtistFromAlbum(artistId: string): void {
     this.albums.forEach((alb) => {
       if (alb.artistId === artistId) alb.id = null;
