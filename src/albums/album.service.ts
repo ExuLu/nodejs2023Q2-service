@@ -11,14 +11,14 @@ export class AlbumService {
   constructor(private readonly db: newDb) {}
 
   getAllAlbums(): Album[] {
-    return database.albums;
+    return this.db.getAllAlbums();
   }
 
   getAlbumById(id: string): Album {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const album: Album = database.albums.find((alb) => alb.id === id);
+    const album: Album = this.db.getAlbum(id);
     if (!album) throw new NotFoundException();
 
     return album;
