@@ -81,6 +81,12 @@ export class newDb {
     });
   }
 
+  deleteAlbumFromTrack(albumId: string): void {
+    this.tracks.forEach((tr) => {
+      if (tr.albumId === albumId) tr.albumId = null;
+    });
+  }
+
   getAllArtists(): Artist[] {
     return this.artists;
   }
