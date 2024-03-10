@@ -9,6 +9,7 @@ import { validate } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
 import { newDb } from 'src/db/database.service';
 import { Track } from 'src/tracks/trackInterface';
+import { Artist } from 'src/artists/artistInterface';
 
 @Injectable()
 export class FavoriteService {
@@ -73,16 +74,14 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artist = database.artists.find((alb) => alb.id === id);
+    const artist = this.db.getArtist(id);
     if (!artist) throw new UnprocessableEntityException('Artist is not found');
 
-    const artistIsInFavs = database.favorites.artists.find(
-      (tr) => tr.id === id,
-    );
+    const artistIsInFavs = this.db.getArtistFromFavs(id);
     if (artistIsInFavs)
       throw new UnprocessableEntityException('Artist is already in favorites');
 
-    database.favorites.artists.push(artist);
+    this.db.addArtistToFavs(id);
     return { message: 'Artist was successfully added to favorites' };
   }
 
@@ -90,11 +89,9 @@ export class FavoriteService {
     const idIsValid = validate(id);
     if (!idIsValid) throw new NotValidIdException();
 
-    const artistIndex: number = database.favorites.artists.findIndex(
-      (tr) => tr.id === id,
-    );
-    if (artistIndex < 0)
+    const artist: Artist = this.db.getArtistFromFavs(id);
+    if (!artist)
       throw new NotFoundException('Artist is not found in favorites');
-    database.favorites.artists.splice(artistIndex, 1);
+    this.db.deleteArtistFromFavs(id);
   }
 }
