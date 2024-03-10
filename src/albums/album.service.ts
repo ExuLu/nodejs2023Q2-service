@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Album } from './albumType';
-import { database } from 'src/db/database';
 import { CreateAlbumDto, UpdateAlbumDto } from './albumDtos';
 import { v4 as uuidv4, validate } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
