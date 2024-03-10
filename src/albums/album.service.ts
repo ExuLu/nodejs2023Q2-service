@@ -68,10 +68,7 @@ export class AlbumService {
 
     this.db.deleteAlbumFromTrack(id);
 
-    // const albIndexFav = database.favorites.albums.findIndex(
-    //   (alb) => alb.id === id,
-    // );
-    // database.favorites.albums.splice(albIndexFav, 1);
+    this.db.deleteAlbumFromFavs(id);
 
     this.db.deleteAlbum(id);
   }

@@ -88,10 +88,7 @@ export class TrackService {
     const track: Track = this.db.getTrack(id);
     if (!track) throw new NotFoundException();
 
-    // const trackIndexFav = database.favorites.tracks.findIndex(
-    //   (tr) => tr.id === id,
-    // );
-    // database.favorites.tracks.splice(trackIndexFav, 1);
+    this.db.deleteTrackFromFavs(id);
 
     this.db.deleteTrack(id);
   }

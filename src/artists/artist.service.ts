@@ -52,10 +52,7 @@ export class ArtistService {
 
     this.db.deleteArtistFromAlbum(id);
 
-    // const artistIndexFav = database.favorites.artists.findIndex(
-    //   (art) => art.id === id,
-    // );
-    // database.favorites.artists.splice(artistIndexFav, 1);
+    this.db.deleteArtistFromFavs(id);
 
     this.db.deleteArtist(id);
   }
