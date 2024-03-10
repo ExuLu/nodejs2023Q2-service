@@ -153,7 +153,7 @@ export class newDb {
   }
 
   addTrackToFavs(id: string): void {
-    const track = this.tracks.find((tr) => tr.id === id);
+    const track = this.getTrackFromFavs(id);
     this.favorites.tracks.push(track);
   }
 
@@ -162,5 +162,22 @@ export class newDb {
       (tr) => tr.id === id,
     );
     this.favorites.tracks.splice(trackId, 1);
+  }
+
+  getArtistFromFavs(id: string): Artist | null {
+    const artist = this.favorites.artists.find((art) => art.id === id);
+    return artist || null;
+  }
+
+  addArtistToFavs(id: string): void {
+    const artist = this.getArtistFromFavs(id);
+    this.favorites.artists.push(artist);
+  }
+
+  deleteArtistFromFavs(id: string): void {
+    const artistId: number = this.favorites.artists.findIndex(
+      (art) => art.id === id,
+    );
+    this.favorites.artists.splice(artistId, 1);
   }
 }
