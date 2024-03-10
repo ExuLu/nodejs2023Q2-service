@@ -142,4 +142,8 @@ export class newDb {
       if (alb.artistId === artistId) alb.id = null;
     });
   }
+
+  getAllFavorites(): Favorites {
+    return this.favorites;
+  }
 }

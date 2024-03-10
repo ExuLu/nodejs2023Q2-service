@@ -7,11 +7,14 @@ import { database } from 'src/db/database';
 import { Favorites } from './favoritesType';
 import { validate } from 'uuid';
 import { NotValidIdException } from 'src/errors/notValidId';
+import { newDb } from 'src/db/database.service';
 
 @Injectable()
 export class FavoriteService {
+  constructor(private readonly db: newDb) {}
+
   getAllFavorites(): Favorites {
-    return database.favorites;
+    return this.db.getAllFavorites();
   }
 
   addTrackToFavs(id: string): object {
